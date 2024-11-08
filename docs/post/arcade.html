@@ -1,0 +1,559 @@
+<!DOCTYPE html>
+<html data-color-mode="light" data-dark-theme="dark" data-light-theme="light" lang="zh-CN">
+<head>
+    <meta content="text/html; charset=utf-8" http-equiv="content-type" />
+    <meta name="viewport" content="width=device-width,initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <link href='https://mirrors.sustech.edu.cn/cdnjs/ajax/libs/Primer/21.0.7/primer.css' rel='stylesheet' />
+    
+    <link rel="icon" href="https://github.githubassets.com/favicons/favicon.svg"><script>
+        let theme = localStorage.getItem("meek_theme") || "light";
+        document.documentElement.setAttribute("data-color-mode", theme);
+    </script>
+<meta name="description" content="# arcade窗口
+
+arcade 程序需要创建一个窗口来承载各种内容，通过窗口类 Window 即可创建。">
+<meta property="og:title" content="arcade">
+<meta property="og:description" content="# arcade窗口
+
+arcade 程序需要创建一个窗口来承载各种内容，通过窗口类 Window 即可创建。">
+<meta property="og:type" content="article">
+<meta property="og:url" content="https://Secret-Dumplings.github.io/secret_dumplings.github.io/post/arcade.html">
+<meta property="og:image" content="https://github.githubassets.com/favicons/favicon.svg">
+<title>arcade</title>
+<link href="//unpkg.com/@wooorm/starry-night@2.1.1/style/both.css" rel="stylesheet" />
+
+
+</head>
+<style>
+body{box-sizing: border-box;min-width: 200px;max-width: 900px;margin: 20px auto;padding: 45px;font-size: 16px;font-family: sans-serif;line-height: 1.25;}
+#header{display:flex;padding-bottom:8px;border-bottom: 1px solid var(--borderColor-muted, var(--color-border-muted));margin-bottom: 16px;}
+#footer {margin-top:64px; text-align: center;font-size: small;}
+
+</style>
+
+<style>
+.postTitle{margin: auto 0;font-size:40px;font-weight:bold;}
+.title-right{display:flex;margin:auto 0 0 auto;}
+.title-right .circle{padding: 14px 16px;margin-right:8px;}
+#postBody{border-bottom: 1px solid var(--color-border-default);padding-bottom:36px;}
+#postBody hr{height:2px;}
+#cmButton{height:48px;margin-top:48px;}
+#comments{margin-top:64px;}
+.g-emoji{font-size:24px;}
+@media (max-width: 600px) {
+    body {padding: 8px;}
+    .postTitle{font-size:24px;}
+}
+.copy-feedback {
+    display: none;
+    position: absolute;
+    top: 10px;
+    right: 50px;
+    color: var(--color-fg-on-emphasis);
+    background-color: var(--color-fg-muted);
+    border-radius: 3px;
+    padding: 5px 8px;
+    font-size: 12px;
+}
+</style>
+
+
+
+
+<body>
+    <div id="header">
+<h1 class="postTitle">arcade</h1>
+<div class="title-right">
+    <a href="https://Secret-Dumplings.github.io/secret_dumplings.github.io" id="buttonHome" class="btn btn-invisible circle" title="首页">
+        <svg class="octicon" width="16" height="16">
+            <path id="pathHome" fill-rule="evenodd"></path>
+        </svg>
+    </a>
+    
+    <a href="https://github.com/Secret-Dumplings/secret_dumplings.github.io/issues/1" target="_blank" class="btn btn-invisible circle" title="Issue">
+        <svg class="octicon" width="16" height="16">
+            <path id="pathIssue" fill-rule="evenodd"></path>
+        </svg>
+    </a>
+    
+
+    <a class="btn btn-invisible circle" onclick="modeSwitch();" title="切换主题">
+        <svg class="octicon" width="16" height="16" >
+            <path id="themeSwitch" fill-rule="evenodd"></path>
+        </svg>
+    </a>
+
+</div>
+</div>
+    <div id="content">
+<div class="markdown-body" id="postBody"><h1>arcade窗口</h1>
+<p>arcade 程序需要创建一个窗口来承载各种内容，通过窗口类 Window 即可创建。</p>
+<div class="highlight highlight-source-python"><pre class="notranslate"><span class="pl-k">from</span> <span class="pl-s1">arcade</span> <span class="pl-k">import</span> <span class="pl-c1">*</span>
+
+<span class="pl-s1">w</span> <span class="pl-c1">=</span> <span class="pl-v">Window</span>()
+<span class="pl-en">run</span>()</pre></div>
+<p>但为了后续方便扩展自己需要的功能，一般会定义一个自己的类，继承 arcade 的 Window 类，然后在我们类的 init 方法中使用 super<br>
+方法代表父类，调用父类的 init 方法完成窗口创建。<br>
+后续即可添加各种方法实现自己要的功能。</p>
+<div class="highlight highlight-source-python"><pre class="notranslate"><span class="pl-k">from</span> <span class="pl-s1">arcade</span> <span class="pl-k">import</span> <span class="pl-c1">*</span>
+
+
+<span class="pl-k">class</span> <span class="pl-v">Room</span>(<span class="pl-v">Window</span>):
+    <span class="pl-k">def</span> <span class="pl-en">__init__</span>(<span class="pl-s1">self</span>):
+        <span class="pl-en">super</span>().<span class="pl-en">__init__</span>()
+
+
+<span class="pl-s1">r</span> <span class="pl-c1">=</span> <span class="pl-v">Room</span>()
+<span class="pl-en">run</span>()</pre></div>
+<h1>Sprite精灵</h1>
+<p>在 arcade 中，所有出现在窗口中的元素都可以用 sprite 类生成，比如背景、人物、动物等等。我们还可以通过程序控制它们进行移动、旋转、跳跃等等。<br>
+因为 sprite 是精灵的意思，所以后续我们也就直接叫这些元素为精灵。<br>
+Sprite 类的使用方法很简单，先写下类名和括号，然后在括号里传入第一个参数，是一个图片，用来确定这个精灵长什么样子。<br>
+最后将生成的精灵对象保存到一个变量中即可。</p>
+<div class="highlight highlight-source-python"><pre class="notranslate"><span class="pl-s1">bg</span> <span class="pl-c1">=</span> <span class="pl-v">Sprite</span>(<span class="pl-s">"room.png"</span>)</pre></div>
+<p>我们一般会在 init 初始化方法中生成精灵，然后保存到属性中，方便在其它方法中使用这些精灵。</p>
+<div class="highlight highlight-source-python"><pre class="notranslate"><span class="pl-k">from</span> <span class="pl-s1">arcade</span> <span class="pl-k">import</span> <span class="pl-c1">*</span>
+
+
+<span class="pl-k">class</span> <span class="pl-v">Room</span>(<span class="pl-v">Window</span>):
+    <span class="pl-k">def</span> <span class="pl-en">__init__</span>(<span class="pl-s1">self</span>):
+        <span class="pl-en">super</span>().<span class="pl-en">__init__</span>()
+        <span class="pl-s1">self</span>.<span class="pl-s1">bg</span> <span class="pl-c1">=</span> <span class="pl-v">Sprite</span>(<span class="pl-s">"room.png"</span>)
+
+
+<span class="pl-s1">r</span> <span class="pl-c1">=</span> <span class="pl-v">Room</span>()
+<span class="pl-en">run</span>()</pre></div>
+<h1>on_draw()</h1>
+<p>on_draw() 方法专门用来处理精灵的展示，是 arcade 程序的基本组成之一。<br>
+在方法里调用精灵的 draw 方法就可以将精灵绘制到窗口中进行展示。</p>
+<div class="highlight highlight-source-python"><pre class="notranslate"><span class="pl-k">from</span> <span class="pl-s1">arcade</span> <span class="pl-k">import</span> <span class="pl-c1">*</span>
+
+
+<span class="pl-k">class</span> <span class="pl-v">Room</span>(<span class="pl-v">Window</span>):
+    <span class="pl-k">def</span> <span class="pl-en">__init__</span>(<span class="pl-s1">self</span>):
+        <span class="pl-en">super</span>().<span class="pl-en">__init__</span>()
+        <span class="pl-s1">self</span>.<span class="pl-s1">bg</span> <span class="pl-c1">=</span> <span class="pl-v">Sprite</span>(<span class="pl-s">"room.png"</span>)
+
+    <span class="pl-k">def</span> <span class="pl-en">on_draw</span>(<span class="pl-s1">self</span>):
+        <span class="pl-s1">self</span>.<span class="pl-s1">bg</span>.<span class="pl-en">draw</span>()
+
+
+<span class="pl-s1">r</span> <span class="pl-c1">=</span> <span class="pl-v">Room</span>()
+<span class="pl-en">run</span>()</pre></div>
+<p>另外，不需要我们在任何地方调用 on_draw 方法，因为 run 函数里已经帮我们调用了。</p>
+<h1>鼠标点击</h1>
+<p>on_mouse_press() 方法在鼠标按下时会被调用，可以用来实现鼠标点击的交互，比如打印点击位置的坐标。<br>
+定义时，除了第一个固定参数 self，还有其它几个固定参数要写。<br>
+首先分别是 x 和 y，它们代表当前鼠标点击位置的坐标。<br>
+接着是 button，这是按钮的意思，代表鼠标按下的是哪个按键，左键呢，中键呢，还是右键。<br>
+不过无论是哪个键被按下，arcade 都会帮我们调用 on mouse press 方法。<br>
+最后是 modifiers，这个一般用不到，可以先不管。</p>
+<div class="highlight highlight-source-python"><pre class="notranslate"><span class="pl-k">def</span> <span class="pl-en">on_mouse_press</span>(<span class="pl-s1">self</span>, <span class="pl-s1">x</span>, <span class="pl-s1">y</span>, <span class="pl-s1">button</span>, <span class="pl-s1">modifiers</span>):
+    <span class="pl-en">print</span>(<span class="pl-s1">x</span>, <span class="pl-s1">y</span>)</pre></div>
+<p>写好定义的格式后，就可以实现鼠标点击后要发生什么了。</p>
+<h1>图片翻转</h1>
+<p>load texture 函数可以实现图片翻转<br>
+水平翻转</p>
+<div class="highlight highlight-source-python"><pre class="notranslate"><span class="pl-en">load_texture</span>(<span class="pl-s1">图片名称</span>, <span class="pl-s1">mirrored</span><span class="pl-c1">=</span><span class="pl-c1">True</span>)</pre></div>
+<p>垂直翻转</p>
+<div class="highlight highlight-source-python"><pre class="notranslate"><span class="pl-en">load_texture</span>(<span class="pl-s1">图片名称</span>, <span class="pl-s1">flipped</span><span class="pl-c1">=</span><span class="pl-c1">True</span>)</pre></div>
+<p>水平+垂直翻转</p>
+<div class="highlight highlight-source-python"><pre class="notranslate"><span class="pl-en">load_texture</span>(<span class="pl-s1">图片名称</span>, <span class="pl-s1">mirrored</span><span class="pl-c1">=</span><span class="pl-c1">True</span>， <span class="pl-s1">flipped</span> <span class="pl-c1">=</span> <span class="pl-c1">True</span>)</pre></div>
+<p><a target="_blank" rel="noopener noreferrer" href="img_5.png"><img src="img_5.png" alt="img_5.png" style="max-width: 100%;"></a></p>
+<h1>生成造型</h1>
+<div class="highlight highlight-source-python"><pre class="notranslate"><span class="pl-en">load_texture</span>(<span class="pl-s1">图片名称</span>)</pre></div>
+<p>通过图片生成造型。</p>
+<p>#设置窗口大小和标题<br>
+调用 Window 类中的 init 方法，分别传入三个参数，它们分别是窗体的宽度、高度和标题，可以设置窗体。</p>
+<div class="highlight highlight-source-python"><pre class="notranslate"><span class="pl-v">Window</span>(<span class="pl-s1">窗体宽度</span>, <span class="pl-s1">窗体高度</span>, <span class="pl-s1">窗体标题</span>)</pre></div>
+<p>示例：</p>
+<div class="highlight highlight-source-python"><pre class="notranslate"><span class="pl-k">from</span> <span class="pl-s1">arcade</span> <span class="pl-k">import</span> <span class="pl-c1">*</span>
+
+
+<span class="pl-k">class</span> <span class="pl-v">MyWindow</span>(<span class="pl-v">Window</span>):
+    <span class="pl-k">def</span> <span class="pl-en">__init__</span>(<span class="pl-s1">self</span>):
+        <span class="pl-en">super</span>().<span class="pl-en">__init__</span>(<span class="pl-c1">400</span>, <span class="pl-c1">700</span>, <span class="pl-s">"飞船试飞"</span>)</pre></div>
+<h1>精灵的位置属性</h1>
+<p>精灵的位置属性有这些，center_x 和 center_y 表示精灵的中心点 x 坐标和 y 坐标</p>
+<markdown-accessiblity-table><table role="table">
+<thead>
+<tr>
+<th>精灵的属性</th>
+<th>意义</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>center_x</td>
+<td>精灵的中心点 x 坐标</td>
+</tr>
+<tr>
+<td>center_y</td>
+<td>精灵的中心点 y 坐标</td>
+</tr>
+<tr>
+<td>position</td>
+<td>精灵的中心点坐标</td>
+</tr>
+<tr>
+<td>top</td>
+<td>精灵的上边界 y 坐标</td>
+</tr>
+</tbody>
+</table></markdown-accessiblity-table>
+<p>|</p>
+<p>on_update 和 on_draw 一样一直被 run 调用，与 on_draw 不同，on_update 有一个参数 time。</p>
+<div class="highlight highlight-source-python"><pre class="notranslate"><span class="pl-k">from</span> <span class="pl-s1">arcade</span> <span class="pl-k">import</span> <span class="pl-c1">*</span>
+
+
+<span class="pl-k">class</span> <span class="pl-v">MyWindow</span>(<span class="pl-v">Window</span>):
+    <span class="pl-k">def</span> <span class="pl-en">__init__</span>(<span class="pl-s1">self</span>):
+        <span class="pl-en">super</span>().<span class="pl-en">__init__</span>(<span class="pl-c1">400</span>, <span class="pl-c1">700</span>, <span class="pl-s">"飞船试飞"</span>)
+        <span class="pl-c"># 背景</span>
+        <span class="pl-s1">self</span>.<span class="pl-s1">bg</span> <span class="pl-c1">=</span> <span class="pl-v">Sprite</span>(<span class="pl-s">"sky.png"</span>)
+        <span class="pl-s1">self</span>.<span class="pl-s1">bg</span>.<span class="pl-s1">position</span> <span class="pl-c1">=</span> <span class="pl-c1">200</span>, <span class="pl-c1">350</span>
+
+    <span class="pl-k">def</span> <span class="pl-en">on_draw</span>(<span class="pl-s1">self</span>):
+        <span class="pl-s1">self</span>.<span class="pl-s1">bg</span>.<span class="pl-en">draw</span>()
+
+    <span class="pl-k">def</span> <span class="pl-en">on_update</span>(<span class="pl-s1">self</span>):
+        <span class="pl-en">print</span>(<span class="pl-s">"update"</span>)
+
+
+<span class="pl-s1">w</span> <span class="pl-c1">=</span> <span class="pl-v">MyWindow</span>()
+<span class="pl-en">run</span>()</pre></div>
+<h1>清除窗口绘制</h1>
+<p>Window 类中的 clear() 方法可以清除窗口的绘制</p>
+<div class="highlight highlight-source-python"><pre class="notranslate"><span class="pl-en">clear</span>()
+<span class="pl-s1">清除窗口的绘制</span></pre></div>
+<h1>添加造型</h1>
+<p>Sprite 类中的 append_texture 方法可以添加精灵对象的造型</p>
+<div class="highlight highlight-source-python"><pre class="notranslate"><span class="pl-s1">精灵对象</span>.<span class="pl-en">append_texture</span>(<span class="pl-en">load_texture</span>(<span class="pl-s1">图片名称</span>))</pre></div>
+<p>使用 Sprite 创建精灵对象时使用的图片生成造型，是第一个造型，索引为 0，第二次添加的造型索引为 1，如果还有添加的造型，依次递增...</p>
+<h1>设置造型</h1>
+<p>Sprite 类中的 set_texture 方法可以设置精灵对象的造型</p>
+<div class="highlight highlight-source-python"><pre class="notranslate"><span class="pl-s1">精灵对象</span>.<span class="pl-en">set_texture</span>(<span class="pl-s1">造型的索引</span>)</pre></div>
+<h1>精灵的缩放</h1>
+<p>通过 Sprite 的参数 scale 可以对精灵进行缩放，scale 大于 1 表示放大，小于 1 表示缩小。<br>
+方式一：核心代码</p>
+<div class="highlight highlight-source-python"><pre class="notranslate"><span class="pl-c"># 时空之门</span>
+<span class="pl-s1">self</span>.<span class="pl-s1">door</span> <span class="pl-c1">=</span> <span class="pl-v">Sprite</span>(<span class="pl-s">"door1.png"</span>, <span class="pl-s1">scale</span><span class="pl-c1">=</span><span class="pl-c1">0.4</span>)</pre></div>
+<p>方式二：核心代码</p>
+<div class="highlight highlight-source-python"><pre class="notranslate"><span class="pl-c"># 时空之门</span>
+<span class="pl-s1">self</span>.<span class="pl-s1">door</span> <span class="pl-c1">=</span> <span class="pl-v">Sprite</span>(<span class="pl-s">"door1.png"</span>)
+<span class="pl-s1">self</span>.<span class="pl-s1">door</span>.<span class="pl-s1">scale</span> <span class="pl-c1">=</span> <span class="pl-c1">0.4</span></pre></div>
+<h1>获取精灵对象的宽度</h1>
+<p>通过精灵对象的 width 属性可以获取到精灵对象的宽度；height 可以获取到精灵对象的高度。</p>
+<div class="highlight highlight-source-python"><pre class="notranslate"><span class="pl-s1">精灵对象</span>.<span class="pl-s1">width</span>
+<span class="pl-s1">精灵对象</span>.<span class="pl-s1">height</span></pre></div>
+<h1>检测精灵与精灵的碰撞</h1>
+<p>check_for_collision 函数用于判断精灵 sprite1 是否与精灵 sprite2 发生碰撞，如果发生碰撞返回 True，否则返回<br>
+False。默认使用的是矩形碰撞检测法。</p>
+<div class="highlight highlight-source-python"><pre class="notranslate"><span class="pl-en">check_for_collision</span>(<span class="pl-s1">sprite1</span>, <span class="pl-s1">sprite2</span>)</pre></div>
+<h1>鼠标移动事件</h1>
+<p>on_mouse_motion 方法在鼠标移动的时候会被调用，参数 x 表示鼠标在窗口中移动后的 x 坐标，y 表示鼠标在窗口中移动后的 y 坐标，dx<br>
+表示鼠标移动后 x 坐标与鼠标移动前 x 的差值， dy 表示鼠标移动后 y 坐标与鼠标移动前 y 的差值。</p>
+<div class="highlight highlight-source-python"><pre class="notranslate"><span class="pl-en">on_mouse_motion</span>(<span class="pl-s1">self</span>, <span class="pl-s1">x</span>, <span class="pl-s1">y</span>, <span class="pl-s1">dx</span>, <span class="pl-s1">dy</span>)</pre></div>
+<p>说明：<br>
+• dx &gt; 0：鼠标向右移动，dx &lt; 0：鼠标向左移动<br>
+• dy &gt; 0：鼠标向上移动，dy &lt; 0：鼠标向下移动</p>
+<h1>AnimatedTimeSprite</h1>
+<p>AnimatedTimeSprite 类是继承于 Sprite 类的一种精灵类，因此它具有 Sprite 的所有属性和方法，除此之外，它还具有自己独有的方法<br>
+update animation，作用是每隔一段时间间隔就自动更换精灵的造型。</p>
+<p>更换精灵造型</p>
+<div class="highlight highlight-source-python"><pre class="notranslate"><span class="pl-v">AnimatedTimeSprite对象</span>.<span class="pl-en">update_animation</span>()</pre></div>
+<p>扩展：<br>
+如果每隔造型之间切换的时间太快，修改AnimatedTimeSprite 的 texture_change_frames 属性可以设置造型切换的时间间隔，默认为<br>
+5。数值越大，切换的时间间隔越长。</p>
+<h1>精灵列表</h1>
+<p>使用 SpriteList 可以创建精灵列表，精灵列表中的元素为精灵对象，需要注意，使用 SpriteList 创建精灵列表时不需要参数。</p>
+<div class="highlight highlight-source-python"><pre class="notranslate"><span class="pl-c"># 子弹</span>
+<span class="pl-s1">bullet_list</span> <span class="pl-c1">=</span> <span class="pl-v">SpriteList</span>()</pre></div>
+<p>SpriteList 的常用方法</p>
+<markdown-accessiblity-table><table role="table">
+<thead>
+<tr>
+<th>SpriteList类中的方法</th>
+<th>作用</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>append(精灵对象)</td>
+<td>添加一个精灵对象到精灵列表中</td>
+</tr>
+<tr>
+<td>draw()</td>
+<td>绘制精灵列表中的精灵</td>
+</tr>
+<tr>
+<td>update()</td>
+<td>更新精灵列表中的精灵</td>
+</tr>
+<tr>
+<td>remove(精灵对象)</td>
+<td>从精灵列表中移出精灵对象</td>
+</tr>
+</tbody>
+</table></markdown-accessiblity-table>
+<h1>精灵对象.update</h1>
+<p>精灵对象的 change x 和 change y 属性，它们表示坐标的变化量，需要配合精灵对象的 update 方法使用，每次调用精灵对象的 update<br>
+方法时，精灵对象的中心点 x 坐标 center x 就会改变 change x，中心点 y 坐标 center y 就会改变 change y。<br>
+说明：<br>
+精灵对象.change_x：精灵对象的中心点 x 坐标在调用 update() 后的变化量<br>
+精灵对象.change_y：精灵对象的中心点 y 坐标在调用 update() 后的变化量</p>
+<h1>schedule</h1>
+<p>schedule 函数可以给指定的函数设定调用的时间间隔，设定后，函数就会按照设定的时间间隔不断的被调用。</p>
+<div class="highlight highlight-source-python"><pre class="notranslate"><span class="pl-en">schedule</span>(<span class="pl-s1">函数名或者方法名</span>, <span class="pl-s1">时间间隔</span>)</pre></div>
+<p>有一个特别需要注意的地方就是 schedule 函数的第一个参数是函数名或者方法名，对这个函数的格式是有要求的，它必须有一个参数，并且只能有一个参数，参数名可以自己定义，通常我们使用<br>
+time，它表示上一次执行这个函数或者方法所花费的时间。</p>
+<h1>将精灵对象移出精灵列表</h1>
+<p>精灵对象的 kill 方法可以把精灵对象自己移出所在的精灵列表</p>
+<div class="highlight highlight-source-python"><pre class="notranslate"><span class="pl-s1">精灵对象</span>.<span class="pl-en">kill</span>()</pre></div>
+<h1>绘制文本</h1>
+<div class="highlight highlight-source-python"><pre class="notranslate"><span class="pl-en">draw_text</span>(<span class="pl-s1">需要绘制的文本</span>, <span class="pl-s1">x坐标</span>, <span class="pl-s1">y坐标</span>, <span class="pl-s1">颜色</span>, <span class="pl-s1">字体大小</span>, <span class="pl-s1">font_name</span><span class="pl-c1">=</span>(<span class="pl-s">"simhei"</span>, <span class="pl-s">"PingFang"</span>))</pre></div>
+<p>arcade 中使用 draw text 函数绘制文本，前五个参数依次是需要绘制的文本，x坐标，y坐标，颜色，字体大小，除此之外还需要指定字体，这样做是为了确保绘制中文的时候在<br>
+Windows 或者 Mac 系统能够正常显示出来。如果没有绘制中文的话，可以不指定字体。<br>
+注意：需要绘制的文本数据类型为字符串。<br>
+常见颜色常量</p>
+<markdown-accessiblity-table><table role="table">
+<thead>
+<tr>
+<th>颜色名称</th>
+<th>arcade 中的颜色常量</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>red（红）</td>
+<td>color.RED</td>
+</tr>
+<tr>
+<td>white（白）</td>
+<td>color.WHITE</td>
+</tr>
+<tr>
+<td>black（黑）</td>
+<td>color.BLACK</td>
+</tr>
+<tr>
+<td>green（绿）</td>
+<td>color.GREEN</td>
+</tr>
+<tr>
+<td>yellow（黄）</td>
+<td>color.YELLOW</td>
+</tr>
+<tr>
+<td>blue（蓝）</td>
+<td>color.BLUE</td>
+</tr>
+<tr>
+<td>purple（紫）</td>
+<td>color.PURPLE</td>
+</tr>
+<tr>
+<td>gray（灰）</td>
+<td>color.GRAY</td>
+</tr>
+<tr>
+<td>brown（棕）</td>
+<td>color.BROWN</td>
+</tr>
+<tr>
+<td>tan（褐色）</td>
+<td>color.TAN</td>
+</tr>
+<tr>
+<td>pink（粉红色）</td>
+<td>color.PINK</td>
+</tr>
+</tbody>
+</table></markdown-accessiblity-table>
+<h1>unschedule</h1>
+<p>与 schedule 对应，unschedule 用来取消使用 schedule 设置的函数，取消后，函数不再按照 schedule 设定的时间间隔被调用。</p>
+<div class="highlight highlight-source-python"><pre class="notranslate"><span class="pl-en">unschedule</span>(<span class="pl-s1">schedule设置的函数</span> <span class="pl-c1">/</span> <span class="pl-s1">方法名</span>)</pre></div>
+<h1>播放音频</h1>
+<p>pyglet.media 是处理音频的模块，本次课，我们用到了其中的 Player、load 和 StaticSource 这三中工具。<br>
+loda 用来加载音频文件。<br>
+若想减少播放音频的延迟，可以用 StaticSource 处理一下，处理后的音频还能绑定到多个 Plyaer 实例上。<br>
+Player 是一个类，用来控制音频，用 queue 方法把加载的音频绑定到 Player 上，用 play 方法就能播放音频了。</p>
+<h1>鼠标点击事件</h1>
+<p>在 Arcade 里边，侦测鼠标点击事件要用到 on_mouse_press 方法。除了 self 之外，这个方法带四个参数。和 on_mouse_motion 方法一样，x<br>
+和 y 也表示鼠标的坐标，button 表示按下的鼠标键，而 modifiers 表示键盘修饰键，比方说 ctrl、shift 这些，是和鼠标按键形成组合用的。<br>
+Arcade 还提供了侦测角色列表中的角色是否和某个坐标点重合的函数：get_sprites_at_point。<br>
+这个函数的返回值是一个列表，里边包含了在侦测坐标点的所有精灵。</p>
+<h1>重置游戏(再来一次）</h1>
+<p>重置游戏的关键在于从游戏过程中 被改变的那些值中，找到需要改回初始状态的值，在飞机大战中，我们找了以下需要重置的值，并放到了<br>
+setup 方法中。</p>
+<h1>View 类</h1>
+<p>Arcade 提供了 View 类，可以为一个 Window 实例提供多个界面。<br>
+想要让 View 类切换界面，使用 show_view 方法，on_show 切换到一个界面时，会默认调用 View 类中的 on_show 方法，所以把切换后才需要启动的部分，放到<br>
+on_show 方法里边。</p></div>
+<div style="font-size:small;margin-top:8px;float:right;"></div>
+
+<button class="btn btn-block" type="button" onclick="openComments()" id="cmButton">评论</button>
+<div class="comments" id="comments"></div>
+
+</div>
+    <div id="footer"><div id="footer1">Copyright © <span id="copyrightYear"></span> <a href="https://Secret-Dumplings.github.io/secret_dumplings.github.io">Blog Title</a></div>
+<div id="footer2">
+    <span id="runday"></span><span>Powered by <a href="https://meekdai.com/Gmeek.html" target="_blank">Gmeek</a></span>
+</div>
+
+<script>
+var now=new Date();
+document.getElementById("copyrightYear").innerHTML=now.getFullYear();
+
+if(""!=""){
+    var startSite=new Date("");
+    var diff=now.getTime()-startSite.getTime();
+    var diffDay=Math.floor(diff/(1000*60*60*24));
+    document.getElementById("runday").innerHTML="网站运行"+diffDay+"天"+" • ";
+}
+</script></div>
+</body>
+<script>
+var IconList={'sun': 'M8 10.5a2.5 2.5 0 100-5 2.5 2.5 0 000 5zM8 12a4 4 0 100-8 4 4 0 000 8zM8 0a.75.75 0 01.75.75v1.5a.75.75 0 01-1.5 0V.75A.75.75 0 018 0zm0 13a.75.75 0 01.75.75v1.5a.75.75 0 01-1.5 0v-1.5A.75.75 0 018 13zM2.343 2.343a.75.75 0 011.061 0l1.06 1.061a.75.75 0 01-1.06 1.06l-1.06-1.06a.75.75 0 010-1.06zm9.193 9.193a.75.75 0 011.06 0l1.061 1.06a.75.75 0 01-1.06 1.061l-1.061-1.06a.75.75 0 010-1.061zM16 8a.75.75 0 01-.75.75h-1.5a.75.75 0 010-1.5h1.5A.75.75 0 0116 8zM3 8a.75.75 0 01-.75.75H.75a.75.75 0 010-1.5h1.5A.75.75 0 013 8zm10.657-5.657a.75.75 0 010 1.061l-1.061 1.06a.75.75 0 11-1.06-1.06l1.06-1.06a.75.75 0 011.06 0zm-9.193 9.193a.75.75 0 010 1.06l-1.06 1.061a.75.75 0 11-1.061-1.06l1.06-1.061a.75.75 0 011.061 0z', 'moon': 'M9.598 1.591a.75.75 0 01.785-.175 7 7 0 11-8.967 8.967.75.75 0 01.961-.96 5.5 5.5 0 007.046-7.046.75.75 0 01.175-.786zm1.616 1.945a7 7 0 01-7.678 7.678 5.5 5.5 0 107.678-7.678z', 'sync': 'M1.705 8.005a.75.75 0 0 1 .834.656 5.5 5.5 0 0 0 9.592 2.97l-1.204-1.204a.25.25 0 0 1 .177-.427h3.646a.25.25 0 0 1 .25.25v3.646a.25.25 0 0 1-.427.177l-1.38-1.38A7.002 7.002 0 0 1 1.05 8.84a.75.75 0 0 1 .656-.834ZM8 2.5a5.487 5.487 0 0 0-4.131 1.869l1.204 1.204A.25.25 0 0 1 4.896 6H1.25A.25.25 0 0 1 1 5.75V2.104a.25.25 0 0 1 .427-.177l1.38 1.38A7.002 7.002 0 0 1 14.95 7.16a.75.75 0 0 1-1.49.178A5.5 5.5 0 0 0 8 2.5Z', 'home': 'M6.906.664a1.749 1.749 0 0 1 2.187 0l5.25 4.2c.415.332.657.835.657 1.367v7.019A1.75 1.75 0 0 1 13.25 15h-3.5a.75.75 0 0 1-.75-.75V9H7v5.25a.75.75 0 0 1-.75.75h-3.5A1.75 1.75 0 0 1 1 13.25V6.23c0-.531.242-1.034.657-1.366l5.25-4.2Zm1.25 1.171a.25.25 0 0 0-.312 0l-5.25 4.2a.25.25 0 0 0-.094.196v7.019c0 .138.112.25.25.25H5.5V8.25a.75.75 0 0 1 .75-.75h3.5a.75.75 0 0 1 .75.75v5.25h2.75a.25.25 0 0 0 .25-.25V6.23a.25.25 0 0 0-.094-.195Z', 'github': 'M8 0c4.42 0 8 3.58 8 8a8.013 8.013 0 0 1-5.45 7.59c-.4.08-.55-.17-.55-.38 0-.27.01-1.13.01-2.2 0-.75-.25-1.23-.54-1.48 1.78-.2 3.65-.88 3.65-3.95 0-.88-.31-1.59-.82-2.15.08-.2.36-1.02-.08-2.12 0 0-.67-.22-2.2.82-.64-.18-1.32-.27-2-.27-.68 0-1.36.09-2 .27-1.53-1.03-2.2-.82-2.2-.82-.44 1.1-.16 1.92-.08 2.12-.51.56-.82 1.28-.82 2.15 0 3.06 1.86 3.75 3.64 3.95-.23.2-.44.55-.51 1.07-.46.21-1.61.55-2.33-.66-.15-.24-.6-.83-1.23-.82-.67.01-.27.38.01.53.34.19.73.9.82 1.13.16.45.68 1.31 2.69.94 0 .67.01 1.3.01 1.49 0 .21-.15.45-.55.38A7.995 7.995 0 0 1 0 8c0-4.42 3.58-8 8-8Z', 'copy': 'M0 6.75C0 5.784.784 5 1.75 5h1.5a.75.75 0 0 1 0 1.5h-1.5a.25.25 0 0 0-.25.25v7.5c0 .138.112.25.25.25h7.5a.25.25 0 0 0 .25-.25v-1.5a.75.75 0 0 1 1.5 0v1.5A1.75 1.75 0 0 1 9.25 16h-7.5A1.75 1.75 0 0 1 0 14.25Z M5 1.75C5 .784 5.784 0 6.75 0h7.5C15.216 0 16 .784 16 1.75v7.5A1.75 1.75 0 0 1 14.25 11h-7.5A1.75 1.75 0 0 1 5 9.25Zm1.75-.25a.25.25 0 0 0-.25.25v7.5c0 .138.112.25.25.25h7.5a.25.25 0 0 0 .25-.25v-7.5a.25.25 0 0 0-.25-.25Z', 'check': 'M13.78 4.22a.75.75 0 0 1 0 1.06l-7.25 7.25a.75.75 0 0 1-1.06 0L2.22 9.28a.751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018L6 10.94l6.72-6.72a.75.75 0 0 1 1.06 0Z'};
+var utterancesLoad=0;
+
+let themeSettings={
+    "dark": ["dark","moon","#00f0ff","dark-blue"],
+    "light": ["light","sun","#ff5000","github-light"],
+    "auto": ["auto","sync","","preferred-color-scheme"]
+};
+function changeTheme(mode, icon, color, utheme){
+    document.documentElement.setAttribute("data-color-mode",mode);
+    document.getElementById("themeSwitch").setAttribute("d",value=IconList[icon]);
+    document.getElementById("themeSwitch").parentNode.style.color=color;
+    if(utterancesLoad==1){utterancesTheme(utheme);}
+}
+function modeSwitch(){
+    let currentMode=document.documentElement.getAttribute('data-color-mode');
+    let newMode = currentMode === "light" ? "dark" : currentMode === "dark" ? "auto" : "light";
+    localStorage.setItem("meek_theme", newMode);
+    if(themeSettings[newMode]){
+        changeTheme(...themeSettings[newMode]);
+    }
+}
+function utterancesTheme(theme){
+    const message={type:'set-theme',theme: theme};
+    const iframe=document.getElementsByClassName('utterances-frame')[0];
+    iframe.contentWindow.postMessage(message,'https://utteranc.es');
+}
+if(themeSettings[theme]){changeTheme(...themeSettings[theme]);}
+console.log("\n %c Gmeek last https://github.com/Meekdai/Gmeek \n","padding:5px 0;background:#02d81d;color:#fff");
+</script>
+
+<script>
+document.getElementById("pathHome").setAttribute("d",IconList["home"]);
+document.getElementById("pathIssue").setAttribute("d",IconList["github"]);
+
+
+
+function openComments(){
+    cm=document.getElementById("comments");
+    cmButton=document.getElementById("cmButton");
+    cmButton.innerHTML="loading";
+    span=document.createElement("span");
+    span.setAttribute("class","AnimatedEllipsis");
+    cmButton.appendChild(span);
+
+    script=document.createElement("script");
+    script.setAttribute("src","https://utteranc.es/client.js");
+    script.setAttribute("repo","Secret-Dumplings/secret_dumplings.github.io");
+    script.setAttribute("issue-term","title");
+    
+    if(localStorage.getItem("meek_theme")=="dark"){script.setAttribute("theme","dark-blue");}
+    else if(localStorage.getItem("meek_theme")=="light") {script.setAttribute("theme","github-light");}
+    else{script.setAttribute("theme","preferred-color-scheme");}
+    
+    script.setAttribute("crossorigin","anonymous");
+    script.setAttribute("async","");
+    cm.appendChild(script);
+
+    int=self.setInterval("iFrameLoading()",200);
+}
+
+function iFrameLoading(){
+    var utterances=document.getElementsByClassName('utterances');
+    if(utterances.length==1){
+        if(utterances[0].style.height!=""){
+            utterancesLoad=1;
+            int=window.clearInterval(int);
+            document.getElementById("cmButton").style.display="none";
+            console.log("utterances Load OK");
+        }
+    }
+}
+
+document.addEventListener('DOMContentLoaded', () => {
+    const createClipboardHTML = (codeContent, additionalClasses = '') => `
+        <pre class="notranslate"><code class="notranslate">${codeContent}</code></pre>
+        <div class="clipboard-container position-absolute right-0 top-0 ${additionalClasses}">
+            <clipboard-copy class="ClipboardButton btn m-2 p-0" role="button" style="display: inherit;">
+                <svg height="16" width="16" class="octicon octicon-copy m-2"><path d="${IconList["copy"]}"></path></svg>
+                <svg height="16" width="16" class="octicon octicon-check color-fg-success m-2 d-none"><path d="${IconList["check"]}"></path></svg>
+            </clipboard-copy>
+            <div class="copy-feedback">Copied!</div>
+        </div>
+    `;
+
+    const handleCodeElements = (selector = '') => {
+        document.querySelectorAll(selector).forEach(codeElement => {
+            const codeContent = codeElement.innerHTML;
+            const newStructure = document.createElement('div');
+            newStructure.className = 'snippet-clipboard-content position-relative overflow-auto';
+            newStructure.innerHTML = createClipboardHTML(codeContent);
+
+            const parentElement = codeElement.parentElement;
+            if (selector.includes('highlight')) {
+                parentElement.insertBefore(newStructure, codeElement.nextSibling);
+                parentElement.removeChild(codeElement);
+            } else {
+                parentElement.parentElement.replaceChild(newStructure, parentElement);
+            }
+        });
+    };
+
+    handleCodeElements('pre.notranslate > code.notranslate');
+    handleCodeElements('div.highlight > pre.notranslate');
+
+    let currentFeedback = null;
+    document.querySelectorAll('clipboard-copy').forEach(copyButton => {
+        copyButton.addEventListener('click', () => {
+            const codeContent = copyButton.closest('.snippet-clipboard-content').innerText;
+            const tempTextArea = document.createElement('textarea');
+            tempTextArea.value = codeContent;
+            document.body.appendChild(tempTextArea);
+            tempTextArea.select();
+            document.execCommand('copy');
+            document.body.removeChild(tempTextArea);
+
+            const copyIcon = copyButton.querySelector('.octicon-copy');
+            const checkIcon = copyButton.querySelector('.octicon-check');
+            const copyFeedback = copyButton.nextElementSibling;
+
+            if (currentFeedback && currentFeedback !== copyFeedback) {currentFeedback.style.display = 'none';}
+            currentFeedback = copyFeedback;
+
+            copyIcon.classList.add('d-none');
+            checkIcon.classList.remove('d-none');
+            copyFeedback.style.display = 'block';
+            copyButton.style.borderColor = 'var(--color-success-fg)';
+
+            setTimeout(() => {
+                copyIcon.classList.remove('d-none');
+                checkIcon.classList.add('d-none');
+                copyFeedback.style.display = 'none';
+                copyButton.style.borderColor = '';
+            }, 2000);
+        });
+    });
+});
+
+</script>
+
+
+</html>
