@@ -114,7 +114,6 @@ load_texture(图片名称, flipped=True)
 load_texture(图片名称, mirrored=True， flipped = True)
 ```
 
-![img_5.png](img_5.png)
 
 # 生成造型
 
