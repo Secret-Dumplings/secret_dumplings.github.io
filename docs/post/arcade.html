@@ -91,7 +91,7 @@ body{box-sizing: border-box;min-width: 200px;max-width: 900px;margin: 20px auto;
 <p>arcade 程序需要创建一个窗口来承载各种内容，通过窗口类 Window 即可创建。</p>
 <div class="highlight highlight-source-python"><pre class="notranslate"><span class="pl-k">from</span> <span class="pl-s1">arcade</span> <span class="pl-k">import</span> <span class="pl-c1">*</span>
 
-<span class="pl-s1">w</span> <span class="pl-c1">=</span> <span class="pl-v">Window</span>()
+<span class="pl-s1">w</span> <span class="pl-c1">=</span> <span class="pl-en">Window</span>()
 <span class="pl-en">run</span>()</pre></div>
 <p>但为了后续方便扩展自己需要的功能，一般会定义一个自己的类，继承 arcade 的 Window 类，然后在我们类的 init 方法中使用 super<br>
 方法代表父类，调用父类的 init 方法完成窗口创建。<br>
@@ -101,28 +101,28 @@ body{box-sizing: border-box;min-width: 200px;max-width: 900px;margin: 20px auto;
 
 <span class="pl-k">class</span> <span class="pl-v">Room</span>(<span class="pl-v">Window</span>):
     <span class="pl-k">def</span> <span class="pl-en">__init__</span>(<span class="pl-s1">self</span>):
-        <span class="pl-en">super</span>().<span class="pl-en">__init__</span>()
+        <span class="pl-en">super</span>().<span class="pl-c1">__init__</span>()
 
 
-<span class="pl-s1">r</span> <span class="pl-c1">=</span> <span class="pl-v">Room</span>()
+<span class="pl-s1">r</span> <span class="pl-c1">=</span> <span class="pl-en">Room</span>()
 <span class="pl-en">run</span>()</pre></div>
 <h1>Sprite精灵</h1>
 <p>在 arcade 中，所有出现在窗口中的元素都可以用 sprite 类生成，比如背景、人物、动物等等。我们还可以通过程序控制它们进行移动、旋转、跳跃等等。<br>
 因为 sprite 是精灵的意思，所以后续我们也就直接叫这些元素为精灵。<br>
 Sprite 类的使用方法很简单，先写下类名和括号，然后在括号里传入第一个参数，是一个图片，用来确定这个精灵长什么样子。<br>
 最后将生成的精灵对象保存到一个变量中即可。</p>
-<div class="highlight highlight-source-python"><pre class="notranslate"><span class="pl-s1">bg</span> <span class="pl-c1">=</span> <span class="pl-v">Sprite</span>(<span class="pl-s">"room.png"</span>)</pre></div>
+<div class="highlight highlight-source-python"><pre class="notranslate"><span class="pl-s1">bg</span> <span class="pl-c1">=</span> <span class="pl-en">Sprite</span>(<span class="pl-s">"room.png"</span>)</pre></div>
 <p>我们一般会在 init 初始化方法中生成精灵，然后保存到属性中，方便在其它方法中使用这些精灵。</p>
 <div class="highlight highlight-source-python"><pre class="notranslate"><span class="pl-k">from</span> <span class="pl-s1">arcade</span> <span class="pl-k">import</span> <span class="pl-c1">*</span>
 
 
 <span class="pl-k">class</span> <span class="pl-v">Room</span>(<span class="pl-v">Window</span>):
     <span class="pl-k">def</span> <span class="pl-en">__init__</span>(<span class="pl-s1">self</span>):
-        <span class="pl-en">super</span>().<span class="pl-en">__init__</span>()
-        <span class="pl-s1">self</span>.<span class="pl-s1">bg</span> <span class="pl-c1">=</span> <span class="pl-v">Sprite</span>(<span class="pl-s">"room.png"</span>)
+        <span class="pl-en">super</span>().<span class="pl-c1">__init__</span>()
+        <span class="pl-s1">self</span>.<span class="pl-c1">bg</span> <span class="pl-c1">=</span> <span class="pl-en">Sprite</span>(<span class="pl-s">"room.png"</span>)
 
 
-<span class="pl-s1">r</span> <span class="pl-c1">=</span> <span class="pl-v">Room</span>()
+<span class="pl-s1">r</span> <span class="pl-c1">=</span> <span class="pl-en">Room</span>()
 <span class="pl-en">run</span>()</pre></div>
 <h1>on_draw()</h1>
 <p>on_draw() 方法专门用来处理精灵的展示，是 arcade 程序的基本组成之一。<br>
@@ -132,14 +132,14 @@ Sprite 类的使用方法很简单，先写下类名和括号，然后在括号�
 
 <span class="pl-k">class</span> <span class="pl-v">Room</span>(<span class="pl-v">Window</span>):
     <span class="pl-k">def</span> <span class="pl-en">__init__</span>(<span class="pl-s1">self</span>):
-        <span class="pl-en">super</span>().<span class="pl-en">__init__</span>()
-        <span class="pl-s1">self</span>.<span class="pl-s1">bg</span> <span class="pl-c1">=</span> <span class="pl-v">Sprite</span>(<span class="pl-s">"room.png"</span>)
+        <span class="pl-en">super</span>().<span class="pl-c1">__init__</span>()
+        <span class="pl-s1">self</span>.<span class="pl-c1">bg</span> <span class="pl-c1">=</span> <span class="pl-en">Sprite</span>(<span class="pl-s">"room.png"</span>)
 
     <span class="pl-k">def</span> <span class="pl-en">on_draw</span>(<span class="pl-s1">self</span>):
-        <span class="pl-s1">self</span>.<span class="pl-s1">bg</span>.<span class="pl-en">draw</span>()
+        <span class="pl-s1">self</span>.<span class="pl-c1">bg</span>.<span class="pl-c1">draw</span>()
 
 
-<span class="pl-s1">r</span> <span class="pl-c1">=</span> <span class="pl-v">Room</span>()
+<span class="pl-s1">r</span> <span class="pl-c1">=</span> <span class="pl-en">Room</span>()
 <span class="pl-en">run</span>()</pre></div>
 <p>另外，不需要我们在任何地方调用 on_draw 方法，因为 run 函数里已经帮我们调用了。</p>
 <h1>鼠标点击</h1>
@@ -165,14 +165,14 @@ Sprite 类的使用方法很简单，先写下类名和括号，然后在括号�
 <p>通过图片生成造型。</p>
 <p>#设置窗口大小和标题<br>
 调用 Window 类中的 init 方法，分别传入三个参数，它们分别是窗体的宽度、高度和标题，可以设置窗体。</p>
-<div class="highlight highlight-source-python"><pre class="notranslate"><span class="pl-v">Window</span>(<span class="pl-s1">窗体宽度</span>, <span class="pl-s1">窗体高度</span>, <span class="pl-s1">窗体标题</span>)</pre></div>
+<div class="highlight highlight-source-python"><pre class="notranslate"><span class="pl-en">Window</span>(<span class="pl-s1">窗体宽度</span>, <span class="pl-s1">窗体高度</span>, <span class="pl-s1">窗体标题</span>)</pre></div>
 <p>示例：</p>
 <div class="highlight highlight-source-python"><pre class="notranslate"><span class="pl-k">from</span> <span class="pl-s1">arcade</span> <span class="pl-k">import</span> <span class="pl-c1">*</span>
 
 
 <span class="pl-k">class</span> <span class="pl-v">MyWindow</span>(<span class="pl-v">Window</span>):
     <span class="pl-k">def</span> <span class="pl-en">__init__</span>(<span class="pl-s1">self</span>):
-        <span class="pl-en">super</span>().<span class="pl-en">__init__</span>(<span class="pl-c1">400</span>, <span class="pl-c1">700</span>, <span class="pl-s">"飞船试飞"</span>)</pre></div>
+        <span class="pl-en">super</span>().<span class="pl-c1">__init__</span>(<span class="pl-c1">400</span>, <span class="pl-c1">700</span>, <span class="pl-s">"飞船试飞"</span>)</pre></div>
 <h1>精灵的位置属性</h1>
 <p>精灵的位置属性有这些，center_x 和 center_y 表示精灵的中心点 x 坐标和 y 坐标</p>
 <markdown-accessiblity-table><table role="table">
@@ -208,19 +208,19 @@ Sprite 类的使用方法很简单，先写下类名和括号，然后在括号�
 
 <span class="pl-k">class</span> <span class="pl-v">MyWindow</span>(<span class="pl-v">Window</span>):
     <span class="pl-k">def</span> <span class="pl-en">__init__</span>(<span class="pl-s1">self</span>):
-        <span class="pl-en">super</span>().<span class="pl-en">__init__</span>(<span class="pl-c1">400</span>, <span class="pl-c1">700</span>, <span class="pl-s">"飞船试飞"</span>)
+        <span class="pl-en">super</span>().<span class="pl-c1">__init__</span>(<span class="pl-c1">400</span>, <span class="pl-c1">700</span>, <span class="pl-s">"飞船试飞"</span>)
         <span class="pl-c"># 背景</span>
-        <span class="pl-s1">self</span>.<span class="pl-s1">bg</span> <span class="pl-c1">=</span> <span class="pl-v">Sprite</span>(<span class="pl-s">"sky.png"</span>)
-        <span class="pl-s1">self</span>.<span class="pl-s1">bg</span>.<span class="pl-s1">position</span> <span class="pl-c1">=</span> <span class="pl-c1">200</span>, <span class="pl-c1">350</span>
+        <span class="pl-s1">self</span>.<span class="pl-c1">bg</span> <span class="pl-c1">=</span> <span class="pl-en">Sprite</span>(<span class="pl-s">"sky.png"</span>)
+        <span class="pl-s1">self</span>.<span class="pl-c1">bg</span>.<span class="pl-c1">position</span> <span class="pl-c1">=</span> <span class="pl-c1">200</span>, <span class="pl-c1">350</span>
 
     <span class="pl-k">def</span> <span class="pl-en">on_draw</span>(<span class="pl-s1">self</span>):
-        <span class="pl-s1">self</span>.<span class="pl-s1">bg</span>.<span class="pl-en">draw</span>()
+        <span class="pl-s1">self</span>.<span class="pl-c1">bg</span>.<span class="pl-c1">draw</span>()
 
     <span class="pl-k">def</span> <span class="pl-en">on_update</span>(<span class="pl-s1">self</span>):
         <span class="pl-en">print</span>(<span class="pl-s">"update"</span>)
 
 
-<span class="pl-s1">w</span> <span class="pl-c1">=</span> <span class="pl-v">MyWindow</span>()
+<span class="pl-s1">w</span> <span class="pl-c1">=</span> <span class="pl-en">MyWindow</span>()
 <span class="pl-en">run</span>()</pre></div>
 <h1>清除窗口绘制</h1>
 <p>Window 类中的 clear() 方法可以清除窗口的绘制</p>
@@ -228,24 +228,24 @@ Sprite 类的使用方法很简单，先写下类名和括号，然后在括号�
 <span class="pl-s1">清除窗口的绘制</span></pre></div>
 <h1>添加造型</h1>
 <p>Sprite 类中的 append_texture 方法可以添加精灵对象的造型</p>
-<div class="highlight highlight-source-python"><pre class="notranslate"><span class="pl-s1">精灵对象</span>.<span class="pl-en">append_texture</span>(<span class="pl-en">load_texture</span>(<span class="pl-s1">图片名称</span>))</pre></div>
+<div class="highlight highlight-source-python"><pre class="notranslate"><span class="pl-s1">精灵对象</span>.<span class="pl-c1">append_texture</span>(<span class="pl-en">load_texture</span>(<span class="pl-s1">图片名称</span>))</pre></div>
 <p>使用 Sprite 创建精灵对象时使用的图片生成造型，是第一个造型，索引为 0，第二次添加的造型索引为 1，如果还有添加的造型，依次递增...</p>
 <h1>设置造型</h1>
 <p>Sprite 类中的 set_texture 方法可以设置精灵对象的造型</p>
-<div class="highlight highlight-source-python"><pre class="notranslate"><span class="pl-s1">精灵对象</span>.<span class="pl-en">set_texture</span>(<span class="pl-s1">造型的索引</span>)</pre></div>
+<div class="highlight highlight-source-python"><pre class="notranslate"><span class="pl-s1">精灵对象</span>.<span class="pl-c1">set_texture</span>(<span class="pl-s1">造型的索引</span>)</pre></div>
 <h1>精灵的缩放</h1>
 <p>通过 Sprite 的参数 scale 可以对精灵进行缩放，scale 大于 1 表示放大，小于 1 表示缩小。<br>
 方式一：核心代码</p>
 <div class="highlight highlight-source-python"><pre class="notranslate"><span class="pl-c"># 时空之门</span>
-<span class="pl-s1">self</span>.<span class="pl-s1">door</span> <span class="pl-c1">=</span> <span class="pl-v">Sprite</span>(<span class="pl-s">"door1.png"</span>, <span class="pl-s1">scale</span><span class="pl-c1">=</span><span class="pl-c1">0.4</span>)</pre></div>
+<span class="pl-s1">self</span>.<span class="pl-c1">door</span> <span class="pl-c1">=</span> <span class="pl-en">Sprite</span>(<span class="pl-s">"door1.png"</span>, <span class="pl-s1">scale</span><span class="pl-c1">=</span><span class="pl-c1">0.4</span>)</pre></div>
 <p>方式二：核心代码</p>
 <div class="highlight highlight-source-python"><pre class="notranslate"><span class="pl-c"># 时空之门</span>
-<span class="pl-s1">self</span>.<span class="pl-s1">door</span> <span class="pl-c1">=</span> <span class="pl-v">Sprite</span>(<span class="pl-s">"door1.png"</span>)
-<span class="pl-s1">self</span>.<span class="pl-s1">door</span>.<span class="pl-s1">scale</span> <span class="pl-c1">=</span> <span class="pl-c1">0.4</span></pre></div>
+<span class="pl-s1">self</span>.<span class="pl-c1">door</span> <span class="pl-c1">=</span> <span class="pl-en">Sprite</span>(<span class="pl-s">"door1.png"</span>)
+<span class="pl-s1">self</span>.<span class="pl-c1">door</span>.<span class="pl-c1">scale</span> <span class="pl-c1">=</span> <span class="pl-c1">0.4</span></pre></div>
 <h1>获取精灵对象的宽度</h1>
 <p>通过精灵对象的 width 属性可以获取到精灵对象的宽度；height 可以获取到精灵对象的高度。</p>
-<div class="highlight highlight-source-python"><pre class="notranslate"><span class="pl-s1">精灵对象</span>.<span class="pl-s1">width</span>
-<span class="pl-s1">精灵对象</span>.<span class="pl-s1">height</span></pre></div>
+<div class="highlight highlight-source-python"><pre class="notranslate"><span class="pl-s1">精灵对象</span>.<span class="pl-c1">width</span>
+<span class="pl-s1">精灵对象</span>.<span class="pl-c1">height</span></pre></div>
 <h1>检测精灵与精灵的碰撞</h1>
 <p>check_for_collision 函数用于判断精灵 sprite1 是否与精灵 sprite2 发生碰撞，如果发生碰撞返回 True，否则返回<br>
 False。默认使用的是矩形碰撞检测法。</p>
@@ -261,14 +261,14 @@ False。默认使用的是矩形碰撞检测法。</p>
 <p>AnimatedTimeSprite 类是继承于 Sprite 类的一种精灵类，因此它具有 Sprite 的所有属性和方法，除此之外，它还具有自己独有的方法<br>
 update animation，作用是每隔一段时间间隔就自动更换精灵的造型。</p>
 <p>更换精灵造型</p>
-<div class="highlight highlight-source-python"><pre class="notranslate"><span class="pl-v">AnimatedTimeSprite对象</span>.<span class="pl-en">update_animation</span>()</pre></div>
+<div class="highlight highlight-source-python"><pre class="notranslate"><span class="pl-v">AnimatedTimeSprite对象</span>.<span class="pl-c1">update_animation</span>()</pre></div>
 <p>扩展：<br>
 如果每隔造型之间切换的时间太快，修改AnimatedTimeSprite 的 texture_change_frames 属性可以设置造型切换的时间间隔，默认为<br>
 5。数值越大，切换的时间间隔越长。</p>
 <h1>精灵列表</h1>
 <p>使用 SpriteList 可以创建精灵列表，精灵列表中的元素为精灵对象，需要注意，使用 SpriteList 创建精灵列表时不需要参数。</p>
 <div class="highlight highlight-source-python"><pre class="notranslate"><span class="pl-c"># 子弹</span>
-<span class="pl-s1">bullet_list</span> <span class="pl-c1">=</span> <span class="pl-v">SpriteList</span>()</pre></div>
+<span class="pl-s1">bullet_list</span> <span class="pl-c1">=</span> <span class="pl-en">SpriteList</span>()</pre></div>
 <p>SpriteList 的常用方法</p>
 <markdown-accessiblity-table><table role="table">
 <thead>
@@ -309,7 +309,7 @@ update animation，作用是每隔一段时间间隔就自动更换精灵的造�
 time，它表示上一次执行这个函数或者方法所花费的时间。</p>
 <h1>将精灵对象移出精灵列表</h1>
 <p>精灵对象的 kill 方法可以把精灵对象自己移出所在的精灵列表</p>
-<div class="highlight highlight-source-python"><pre class="notranslate"><span class="pl-s1">精灵对象</span>.<span class="pl-en">kill</span>()</pre></div>
+<div class="highlight highlight-source-python"><pre class="notranslate"><span class="pl-s1">精灵对象</span>.<span class="pl-c1">kill</span>()</pre></div>
 <h1>绘制文本</h1>
 <div class="highlight highlight-source-python"><pre class="notranslate"><span class="pl-en">draw_text</span>(<span class="pl-s1">需要绘制的文本</span>, <span class="pl-s1">x坐标</span>, <span class="pl-s1">y坐标</span>, <span class="pl-s1">颜色</span>, <span class="pl-s1">字体大小</span>, <span class="pl-s1">font_name</span><span class="pl-c1">=</span>(<span class="pl-s">"simhei"</span>, <span class="pl-s">"PingFang"</span>))</pre></div>
 <p>arcade 中使用 draw text 函数绘制文本，前五个参数依次是需要绘制的文本，x坐标，y坐标，颜色，字体大小，除此之外还需要指定字体，这样做是为了确保绘制中文的时候在<br>
